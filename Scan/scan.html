@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Scan — Heritageverse</title>
 <link rel="stylesheet" href="/Homepage/style.css">
+<link rel="stylesheet" href="/Scan/scan.css">
 </head>
 <body class="scan-theme">
 <div id="site-header" data-active="Scan"></div>
@@ -23,19 +24,31 @@
 
     <div class="card scan-stage">
       <div class="scan-modeswitch">
-        <button class="mode-btn active" data-mode="camera">Camera</button>
-        <button class="mode-btn" data-mode="upload">Upload Image</button>
+        <button type="button" class="mode-btn active" data-mode="camera">
+       Camera
+      </button>
+
+        <button type="button" class="mode-btn" data-mode="upload">
+      Upload Image
+      </button>
       </div>
       <div class="scan-viewport" id="scanViewport">
         <div class="scan-corner tl"></div><div class="scan-corner tr"></div>
         <div class="scan-corner bl"></div><div class="scan-corner br"></div>
-        <span class="scan-placeholder">🪷</span>
+        <video id="cameraVideo" autoplay playsinline muted></video>
+        <img id="imagePreview" alt="Selected image">
+        <span class="scan-placeholder" id="scanPlaceholder">🪷</span>
       </div>
       <input type="file" id="fileInput" accept="image/*" style="display:none;">
       <div class="scan-controls">
-        <button class="shutter" id="shutterBtn" title="Identify item"></button>
+        <button
+  type="button"
+  class="shutter"
+  id="shutterBtn"
+  title="Identify item">
+</button>
       </div>
-      <p class="hint">Center the object in frame, then tap to identify.</p>
+      <p class="hint" id="scanHint">Center the object in frame, then tap to identify.</p><p class="scan-status" id="scanStatus"></p>
     </div>
 
     <div class="card scan-result-panel" id="resultPanel">
@@ -45,34 +58,23 @@
       </div>
       <div class="result-filled" id="resultFilled" style="display:none;">
         <span class="chip" style="background:#dbeee9;color:#2f6a5d;">✓ Identified</span>
-        <h3>Nataraja Sculpture</h3>
-        <p class="meta">Chola Dynasty, 11th Century · Tamil Nadu, India</p>
-        <p class="about"><b>About</b><br>Nataraja is a form of Lord Shiva as the cosmic dancer. This
-          brass sculpture represents the eternal cycle of creation, preservation and destruction.</p>
-        <div class="fact-grid">
-          <div><span>Category</span><b>Sculpture</b></div>
-          <div><span>Material</span><b>Bronze</b></div>
-          <div><span>Period</span><b>11th Century</b></div>
-          <div><span>Region</span><b>Tamil Nadu</b></div>
+        <h3 id="resultName">—</h3>
+        <p class="meta" id="resultFrom">—</p>
+        <div class="scan-info">
+          <p class="about"><b>About</b><br><span id="resultAbout">—</span></p>
+          <p class="about"><b>Why it is important</b><br><span id="resultImportance">—</span></p>
+          <p class="about"><b>What it represents</b><br><span id="resultRepresents">—</span></p>
         </div>
-        <div class="result-actions">
-          <a href="ai-guide.html" class="btn btn-dark btn-sm">Learn more</a>
-          <button class="btn btn-outline btn-sm" id="saveBtn">Save</button>
+        <div class="fact-grid">
+          <div><span>Category</span><b id="resultCategory">—</b></div>
+          <div><span>From / State</span><b id="resultState">—</b></div>
+          <div><span>Place</span><b id="resultPlace">—</b></div>
+          <div><span>Period</span><b id="resultPeriod">—</b></div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="container" style="margin-top:44px;">
-    <div class="section-head"><div><h2>Recent scans</h2></div></div>
-    <div class="scroller">
-      <div class="recent-thumb" style="background:linear-gradient(150deg,#c1512d,#7a3018);"></div>
-      <div class="recent-thumb" style="background:linear-gradient(150deg,#d4a343,#946f21);"></div>
-      <div class="recent-thumb active" style="background:linear-gradient(150deg,#6b4baa,#40255f);"></div>
-      <div class="recent-thumb" style="background:linear-gradient(150deg,#3c7a6f,#204a42);"></div>
-      <div class="recent-thumb" style="background:linear-gradient(150deg,#1b1a2e,#322f54);"></div>
-    </div>
-  </div>
 </section>
 
 <div id="site-footer"></div>
@@ -129,35 +131,7 @@
 </style>
 
 <script src="/Homepage/script.js"></script>
-<script>
-document.querySelectorAll(".mode-btn").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    document.querySelectorAll(".mode-btn").forEach(b=>b.classList.remove("active"));
-    btn.classList.add("active");
-    if(btn.dataset.mode==="upload") document.getElementById("fileInput").click();
-  });
-});
+<script src="/Scan/scan.js"></script>
 
-document.getElementById("fileInput").addEventListener("change",(e)=>{
-  const file = e.target.files[0];
-  if(!file) return;
-  const url = URL.createObjectURL(file);
-  const vp = document.getElementById("scanViewport");
-  vp.style.backgroundImage = `url(${url})`;
-  vp.querySelector(".scan-placeholder").style.display = "none";
-});
-
-document.getElementById("shutterBtn").addEventListener("click", ()=>{
-  document.getElementById("resultEmpty").style.display = "none";
-  const filled = document.getElementById("resultFilled");
-  filled.style.display = "block";
-  filled.style.opacity = 0;
-  filled.animate([{opacity:0,transform:"translateY(6px)"},{opacity:1,transform:"translateY(0)"}],{duration:280,fill:"forwards"});
-});
-
-document.getElementById("saveBtn").addEventListener("click", (e)=>{
-  e.target.textContent = "Saved ✓";
-});
-</script>
 </body>
 </html>

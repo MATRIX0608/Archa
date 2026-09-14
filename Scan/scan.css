@@ -1,0 +1,121 @@
+/* ===== CAMERA AREA FIX ===== */
+
+.camera-box,
+.camera-preview,
+.preview-area {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 420px;
+    max-height: 420px;
+    border-radius: 20px;
+}
+
+/* Camera video stays inside the preview */
+.camera-box video,
+.camera-preview video,
+.preview-area video,
+video#cameraPreview {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Uploaded image stays inside the preview */
+.camera-box img,
+.camera-preview img,
+.preview-area img {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* Keep Camera / Upload buttons ABOVE everything */
+.scan-tabs,
+.scan-controls,
+.camera-controls,
+.upload-controls {
+    position: relative;
+    z-index: 100;
+}
+
+/* Prevent the preview from covering the buttons */
+.camera-box,
+.camera-preview,
+.preview-area {
+    z-index: 1;
+}
+
+/* ===== FINAL SCAN CAMERA FIX ===== */
+
+/* Keep Camera / Upload buttons visible */
+.scan-modeswitch {
+    position: relative !important;
+    z-index: 20 !important;
+    display: flex !important;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+/* Camera preview stays in its own box */
+.scan-viewport {
+    position: relative !important;
+    width: 100% !important;
+    height: 300px !important;
+    max-height: 300px !important;
+    overflow: hidden !important;
+    border-radius: var(--radius-md);
+}
+
+/* Camera video stays INSIDE the preview */
+#cameraVideo {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+    z-index: 1 !important;
+}
+
+/* Uploaded image stays inside preview */
+#imagePreview {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+    z-index: 2 !important;
+}
+
+/* Corners stay visible */
+.scan-corner {
+    z-index: 5 !important;
+}
+
+/* Capture button stays below camera */
+.scan-controls {
+    position: relative !important;
+    z-index: 20 !important;
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 18px !important;
+}
+
+/* Make sure the scan card keeps normal layout */
+.scan-stage {
+    position: relative !important;
+    overflow: visible !important;
+}
