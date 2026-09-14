@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Games &amp; Quizzes — Heritageverse</title>
+<link rel="stylesheet" href="/Homepage/style.css">
+</head>
+<body class="games-theme">
+<div id="site-header" data-active="Games"></div>
+
+<section class="g-hero">
+  <div class="container">
+    <span class="eyebrow" style="color:var(--gold-light);">Games &amp; Quizzes</span>
+    <h1>Learn while you play</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container game-grid-full">
+    <div class="game-card-lg">
+      <span class="game-ico">🏛️</span><b>Heritage Quiz</b><span>Test your knowledge of monuments, festivals and history.</span>
+      <button class="btn btn-primary btn-block" onclick="alert('Starting Heritage Quiz…')">Start</button>
+    </div>
+    <div class="game-card-lg">
+      <span class="game-ico">🎴</span><b>Memory Match</b><span>Match pairs of iconic Indian monuments and crafts.</span>
+      <button class="btn btn-block" style="background:#6b4baa;color:#fff;" onclick="alert('Starting Memory Match…')">Start</button>
+    </div>
+    <div class="game-card-lg">
+      <span class="game-ico">🧩</span><b>Monument Puzzle</b><span>Piece together famous Indian landmarks.</span>
+      <button class="btn btn-block" style="background:var(--terracotta);color:#fff;" onclick="alert('Starting Monument Puzzle…')">Start</button>
+    </div>
+    <div class="game-card-lg">
+      <span class="game-ico">🔤</span><b>Word Search</b><span>Find hidden words from India's cultural vocabulary.</span>
+      <button class="btn btn-block" style="background:var(--teal);color:#fff;" onclick="alert('Starting Word Search…')">Start</button>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<style>
+.g-hero{background:linear-gradient(160deg,var(--ink-900),var(--ink-800));color:#fff;padding:56px 0;}
+.g-hero h1{font-size:34px;color:#fff;margin-top:10px;}
+.game-grid-full{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.game-card-lg{
+  background:#fff;border-radius:var(--radius-lg);padding:30px 22px;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:8px;box-shadow:var(--shadow-card);
+}
+.game-card-lg .game-ico{font-size:38px;}
+.game-card-lg b{font-family:var(--serif);font-size:17px;}
+.game-card-lg span{font-size:12.5px;color:var(--text-soft);margin-bottom:10px;}
+@media(max-width:900px){.game-grid-full{grid-template-columns:1fr 1fr;}}
+@media(max-width:560px){.game-grid-full{grid-template-columns:1fr;}}
+</style>
+<script src="/Homepage/script.js"></script>
+</body>
+</html>

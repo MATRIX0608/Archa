@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timeline — Heritageverse</title>
+<link rel="stylesheet" href="/Homepage/style.css">
+</head>
+<body class="timeline-theme">
+<div id="site-header" data-active="Timeline"></div>
+
+<section class="tl-hero">
+  <div class="container">
+    <span class="eyebrow" style="color:var(--gold-light);">Timeline</span>
+    <h1>Journey through India's rich history</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="era-row" id="eraRow"></div>
+    <div class="era-grid" id="eraGrid"></div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<style>
+.tl-hero{background:linear-gradient(160deg,var(--ink-900),var(--ink-800));color:#fff;padding:56px 0;}
+.tl-hero h1{font-size:34px;color:#fff;margin-top:10px;}
+.era-row{display:flex;gap:10px;margin-bottom:30px;flex-wrap:wrap;}
+.era-btn{padding:10px 18px;border-radius:10px;border:1px solid var(--sand-300);background:#fff;font-weight:600;font-size:13px;}
+.era-btn.active{background:var(--ink-900);color:#fff;border-color:var(--ink-900);}
+.era-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:18px;}
+.era-item{background:#fff;border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-card);}
+.era-item .thumb{height:110px;}
+.era-item .body{padding:12px 14px;}
+.era-item b{font-family:var(--serif);font-size:14.5px;display:block;}
+.era-item span{font-size:11.5px;color:var(--text-soft);}
+</style>
+
+<script src="/Homepage/script.js"></script>
+<script>
+const eras = {
+  "Ancient (>2500 BCE)":[["Indus Valley Civilization","2500–1900 BCE"],["Maurya Empire","322–185 BCE"],["Gupta Empire","320–550 CE"]],
+  "Medieval (600–1700 CE)":[["Delhi Sultanate","1206–1526 CE"],["Mughal Empire","1526–1857 CE"],["Vijayanagara Empire","1336–1646 CE"]],
+  "Colonial (1700–1947 CE)":[["East India Company rule","1757–1858 CE"],["British Raj","1858–1947 CE"],["Freedom Movement","1857–1947 CE"]],
+  "Modern (1947–Present)":[["Independence","1947"],["Republic of India","1950"],["Digital India era","2015–present"]],
+};
+const grads = ["#c1512d,#7a3018","#d4a343,#946f21","#3c7a6f,#204a42","#6b4baa,#40255f"];
+
+const row = document.getElementById("eraRow");
+row.innerHTML = Object.keys(eras).map((e,i)=>`<button class="era-btn ${i===0?'active':''}" data-era="${e}">${e}</button>`).join("");
+function renderEra(era){
+  document.getElementById("eraGrid").innerHTML = eras[era].map((it,i)=>`
+    <div class="era-item">
+      <div class="thumb" style="background:linear-gradient(150deg,${grads[i%grads.length]});"></div>
+      <div class="body"><b>${it[0]}</b><span>${it[1]}</span></div>
+    </div>`).join("");
+}
+row.querySelectorAll(".era-btn").forEach(b=>b.addEventListener("click",()=>{
+  row.querySelectorAll(".era-btn").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active"); renderEra(b.dataset.era);
+}));
+renderEra(Object.keys(eras)[0]);
+</script>
+</body>
+</html>

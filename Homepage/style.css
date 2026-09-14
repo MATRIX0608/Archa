@@ -1,0 +1,248 @@
+/* ===========================================================
+   HeritageVerse — shared design system
+   Palette: deep indigo night + sandstone card + terracotta/gold accents
+   =========================================================== */
+
+:root{
+  --ink-900:#1b1a2e;
+  --ink-800:#242240;
+  --ink-700:#322f54;
+  --sand-100:#f7f1e3;
+  --sand-200:#efe4cb;
+  --sand-300:#e3d3ab;
+  --terracotta:#c1512d;
+  --terracotta-dark:#9c3f22;
+  --gold:#d4a343;
+  --gold-light:#e8c877;
+  --teal:#3c7a6f;
+  --text-main:#2a2438;
+  --text-soft:#665f78;
+  --text-inverse:#f7f1e3;
+  --radius-lg:20px;
+  --radius-md:14px;
+  --radius-sm:8px;
+  --shadow-card:0 10px 30px -12px rgba(27,26,46,.35);
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --sans:"Avenir Next","Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:var(--sans);
+  color:var(--text-main);
+  background:var(--sand-100);
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:400;margin:0;line-height:1.1;}
+p{margin:0;line-height:1.55;color:var(--text-soft);}
+ul{margin:0;padding:0;list-style:none;}
+
+.container{
+  max-width:1280px;
+  margin:0 auto;
+  padding:0 32px;
+}
+
+/* ---------- Top navigation (modern) ---------- */
+.site-header{
+  background:rgba(20,19,36,.72);
+  backdrop-filter:blur(16px) saturate(160%);
+  -webkit-backdrop-filter:blur(16px) saturate(160%);
+  color:var(--text-inverse);
+  position:sticky;
+  top:0;
+  z-index:50;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.nav-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 0;
+  gap:24px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  font-family:var(--sans);
+}
+.brand .mark{
+  width:36px;height:36px;
+  border-radius:11px;
+  background:linear-gradient(135deg,var(--gold-light),var(--terracotta));
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--ink-900);
+  flex-shrink:0;
+  box-shadow:0 4px 14px -4px rgba(193,81,45,.6);
+}
+.brand .word{font-size:18.5px;font-weight:700;letter-spacing:-.01em;font-family:var(--sans);}
+.brand .tag{
+  font-family:var(--sans);
+  font-size:10px;
+  font-weight:600;
+  color:var(--sand-300);
+  letter-spacing:.12em;
+  margin-top:1px;
+  opacity:.7;
+}
+.brand-text{display:flex;flex-direction:column;}
+
+.main-nav{
+  display:flex;gap:2px;flex-wrap:wrap;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  padding:4px;border-radius:999px;
+}
+.main-nav a{
+  padding:8px 16px;
+  border-radius:999px;
+  font-size:13.5px;
+  font-weight:500;
+  color:var(--sand-300);
+  transition:background .18s ease,color .18s ease;
+}
+.main-nav a:hover{background:rgba(255,255,255,.08);color:var(--text-inverse);}
+.main-nav a.active{background:#fff;color:var(--ink-900);font-weight:600;}
+
+.nav-avatar{
+  width:34px;height:34px;border-radius:10px;
+  background:linear-gradient(135deg,var(--gold-light),var(--gold));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--sans);font-weight:700;font-size:13px;color:var(--ink-900);
+  flex-shrink:0;
+}
+
+.nav-toggle{display:none;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:10px;color:var(--text-inverse);padding:8px 11px;font-size:15px;}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:12px 22px;
+  border-radius:999px;
+  border:none;
+  font-size:14.5px;
+  font-weight:600;
+  letter-spacing:.01em;
+}
+.btn-primary{background:var(--terracotta);color:#fff;}
+.btn-primary:hover{background:var(--terracotta-dark);}
+.btn-ghost{background:transparent;color:var(--text-inverse);border:1px solid rgba(247,241,227,.4);}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold-light);}
+.btn-dark{background:var(--ink-900);color:var(--text-inverse);}
+.btn-dark:hover{background:var(--ink-800);}
+.btn-outline{background:transparent;border:1.5px solid var(--ink-900);color:var(--ink-900);}
+.btn-outline:hover{background:var(--ink-900);color:#fff;}
+.btn-sm{padding:8px 16px;font-size:13px;}
+.btn-block{width:100%;justify-content:center;}
+
+/* ---------- Cards ---------- */
+.card{
+  background:#fff;
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-card);
+  overflow:hidden;
+}
+.section{padding:72px 0;}
+.section-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:34px;
+}
+.eyebrow{
+  color:var(--terracotta);
+  font-size:13.5px;
+  font-weight:600;
+  margin-bottom:8px;
+  display:block;
+}
+.section-head h2{font-size:32px;}
+.section-head p{max-width:420px;}
+.view-all{font-size:14px;font-weight:600;color:var(--terracotta);white-space:nowrap;}
+.view-all:hover{color:var(--terracotta-dark);}
+
+/* ---------- Footer ---------- */
+.site-footer{
+  background:var(--ink-900);
+  color:var(--sand-300);
+  padding:56px 0 26px;
+  margin-top:40px;
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr 1fr;
+  gap:36px;
+  padding-bottom:30px;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+.footer-grid h4{color:var(--text-inverse);font-size:15px;margin-bottom:14px;font-family:var(--sans);font-weight:600;}
+.footer-grid li{margin-bottom:9px;font-size:14px;}
+.footer-grid a:hover{color:var(--gold-light);}
+.footer-bottom{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:22px;font-size:13px;color:var(--sand-300)80;
+  flex-wrap:wrap;gap:10px;
+}
+
+/* ---------- Utility ---------- */
+.chip{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 13px;border-radius:999px;
+  background:var(--sand-200);
+  font-size:12.5px;font-weight:600;color:var(--text-main);
+}
+.stat-row{display:flex;gap:22px;flex-wrap:wrap;}
+.stat{display:flex;flex-direction:column;}
+.stat b{font-family:var(--serif);font-size:22px;}
+.stat span{font-size:12px;color:var(--text-soft);}
+
+.scroller{
+  display:flex;gap:18px;overflow-x:auto;padding-bottom:6px;
+  scrollbar-width:thin;
+}
+.scroller::-webkit-scrollbar{height:6px;}
+.scroller::-webkit-scrollbar-thumb{background:var(--sand-300);border-radius:6px;}
+
+@media(max-width:960px){
+  .main-nav{display:none;}
+  .nav-toggle{display:inline-flex;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:640px){
+  .container{padding:0 18px;}
+  .section{padding:52px 0;}
+  .footer-grid{grid-template-columns:1fr;}
+}
+
+
+/* ===========================================================
+   INDIA CULTURE VISUAL THEME
+   Different Indian heritage image for every page.
+   Homepage cycles through three images automatically.
+   =========================================================== */
+body.home-theme,body.explore-theme,body.games-theme,body.scan-theme,body.guide-theme,body.timeline-theme{background-size:cover;background-position:center;background-attachment:fixed;background-repeat:no-repeat;}
+body.home-theme::before,body.explore-theme::before,body.games-theme::before,body.scan-theme::before,body.guide-theme::before,body.timeline-theme::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:rgba(247,241,227,.72);}
+body.explore-theme{background-image:url("https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=2200&q=85");}
+body.games-theme{background-image:url("https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=2200&q=85");}
+body.scan-theme{background-image:url("https://images.unsplash.com/photo-1606293926075-69a00dbfde81?auto=format&fit=crop&w=2200&q=85");}
+body.guide-theme{background-image:url("https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=2200&q=85");}
+body.timeline-theme{background-image:url("https://images.unsplash.com/photo-1561361058-c24cecae35ca?auto=format&fit=crop&w=2200&q=85");}
+body.home-theme{background-image:url("https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=2200&q=85");animation:homeIndiaBackground 18s infinite;}
+@keyframes homeIndiaBackground{0%,30%{background-image:url("https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=2200&q=85");}33%,63%{background-image:url("https://images.unsplash.com/photo-1514222134-b57c7070c10e?auto=format&fit=crop&w=2200&q=85");}66%,96%{background-image:url("https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=2200&q=85");}100%{background-image:url("https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=2200&q=85");}}
+.home-theme .hero{background:linear-gradient(90deg,rgba(27,26,20,.86),rgba(93,45,20,.48),rgba(0,0,0,.25)),url("https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=2200&q=85") center/cover;min-height:520px;display:flex;align-items:center;}
+.explore-theme .ex-hero{background:linear-gradient(135deg,rgba(49,27,17,.90),rgba(183,82,35,.52)),url("https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=2200&q=85") center/cover;}
+.games-theme .g-hero{background:linear-gradient(135deg,rgba(49,27,17,.90),rgba(183,82,35,.52)),url("https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=2200&q=85") center/cover;}
+.scan-theme .scan-hero{background:linear-gradient(135deg,rgba(49,27,17,.90),rgba(183,82,35,.52)),url("https://images.unsplash.com/photo-1606293926075-69a00dbfde81?auto=format&fit=crop&w=2200&q=85") center/cover;}
+.guide-theme .guide-shell{background:linear-gradient(135deg,rgba(49,27,17,.08),rgba(183,82,35,.10)),url("https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=2200&q=85") center/cover;}
+.timeline-theme .tl-hero{background:linear-gradient(135deg,rgba(49,27,17,.90),rgba(183,82,35,.52)),url("https://images.unsplash.com/photo-1561361058-c24cecae35ca?auto=format&fit=crop&w=2200&q=85") center/cover;}
+.home-theme .section,.explore-theme .section,.games-theme .section,.scan-theme .section,.timeline-theme .section{background:rgba(247,241,227,.82);}
+@media(max-width:640px){body.home-theme,body.explore-theme,body.games-theme,body.scan-theme,body.guide-theme,body.timeline-theme{background-attachment:scroll;}}

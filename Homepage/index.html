@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discover India</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="home-theme">
+
+<div id="site-header" data-active="Explore"></div>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <span class="eyebrow">A living archive of india</span>
+      <h1>Discover India's<br><em>timeless heritage</em></h1>
+      <p class="hero-sub">Monuments, traditions, festivals, art, cuisine and the stories that
+        connect a billion people to their roots — scan, explore, and ask, all in one place.</p>
+      <div class="hero-search">
+        <input type="text" placeholder="Search monuments, festivals, places…">
+        <button class="btn btn-primary">Search</button>
+      </div>
+      <div class="hero-actions">
+        <a href="/Explore/explore.html" class="action-tile">
+          <span class="tile-ico" style="background:#f0dfc0;color:#a4782b;">◱</span>
+          <span><b>Explore</b><small>States, monuments, festivals, food &amp; stories</small></span>
+        </a>
+        <a href="/Scan/scan.html" class="action-tile">
+          <span class="tile-ico" style="background:#dbeee9;color:#2f6a5d;">◎</span>
+          <span><b>Scan</b><small>Scan any monument, art or craft to identify</small></span>
+        </a>
+        <a href="/Ai-Chatbot/ai-guide.html" class="action-tile">
+          <span class="tile-ico" style="background:#e6dcf6;color:#6b4baa;">✦</span>
+          <span><b>AI Guide</b><small>Ask anything about our culture in any language</small></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CATEGORIES ================= -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>Explore by categories</h2>
+      </div>
+      <a href="/Explore/explore.html" class="view-all">View all →</a>
+    </div>
+    <div class="cat-grid">
+      <a href="/Explore/explore.html#monuments" class="cat-card">
+        <div class="cat-img" style="background-image: url('/image/mm.jpg');"></div>
+        <b>Monuments</b><span>Discover historical wonders</span>
+      </a>
+      <a href="/Explore/explore.html#festivals" class="cat-card">
+        <div class="cat-img" style="background-image: url('/image/fes.jpg');"></div>
+        <b>Festivals</b><span>Celebrate our vibrant traditions</span>
+      </a>
+      <a href="/Explore/explore.html#food" class="cat-card">
+        <div class="cat-img" style="background-image: url('/image/food.png');"></div>
+        <b>Food</b><span>Savour traditional delicacies</span>
+      </a>
+      <a href="/Explore/explore.html#craft" class="cat-card">
+        <div class="cat-img" style="background-image: url('/image/craft.png');"></div>
+        <b>Art &amp; Craft</b><span>Explore timeless art forms</span>
+      </a>
+      <a href="/Explore/explore.html#stories" class="cat-card">
+        <div class="cat-img" style="background-image: url('/image/story.png');"></div>
+        <b>Stories</b><span>Legends, folktales &amp; more</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXPLORE / SCAN PREVIEW STRIP ================= -->
+<section class="section" style="padding-top:0;">
+  <div class="container preview-grid">
+
+    <!-- Explore preview -->
+    <div class="card preview-card">
+      <div class="preview-head">
+        <b>Explore</b><span>Choose a state to begin your journey</span>
+      </div>
+      <div class="preview-body">
+        <div class="state-blurb">
+          <h3>Rajasthan</h3>
+          <p>Land of kings, forts, folk music and vibrant culture.</p>
+          <div class="stat-row" style="margin-top:12px;">
+            <div class="stat"><b>245</b><span>Monuments</span></div>
+            <div class="stat"><b>58</b><span>Festivals</span></div>
+            <div class="stat"><b>96</b><span>Stories</span></div>
+          </div>
+          <a href="/Explore/explore.html" class="btn btn-dark btn-sm" style="margin-top:16px;">Explore Rajasthan →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scan preview -->
+    <div class="card preview-card">
+      <div class="preview-head">
+        <b>Scan</b><span>Scan any heritage item to identify</span>
+      </div>
+      <div class="preview-body scan-preview">
+        <div class="scan-frame">
+          <div class="scan-corner tl"></div><div class="scan-corner tr"></div>
+          <div class="scan-corner bl"></div><div class="scan-corner br"></div>
+          <span class="scan-emoji">🪷</span>
+        </div>
+        <div class="scan-result">
+          <span class="chip" style="background:#dbeee9;color:#2f6a5d;">✓ Identified</span>
+          <h4>Nataraja Sculpture</h4>
+          <p>Chola Dynasty, 11th Century · Tamil Nadu</p>
+          <a href="/Scan/scan.html" class="btn btn-outline btn-sm" style="margin-top:12px;">Learn more</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI guide preview -->
+    <div class="card preview-card">
+      <div class="preview-head">
+        <b>AI Guide</b><span>Your cultural companion</span>
+      </div>
+      <div class="preview-body">
+        <div class="chat-bubble user">Tell me about Konark Sun Temple</div>
+        <div class="chat-bubble bot">Konark Sun Temple is a 13th-century CE temple in Odisha, designed as a
+          giant chariot with 24 wheels drawn by seven horses — a masterpiece of Kalinga architecture
+          dedicated to Surya, the Sun God.</div>
+        <a href="/Ai-Chatbot/ai-guide.html" class="btn btn-dark btn-sm" style="margin-top:8px;">Ask something →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FESTIVALS ================= -->
+<section class="section" id="festivals-home">
+  <div class="container">
+    <div class="section-head">
+      <div><h2>Festivals</h2><p>Experience the spirit of India, month by month.</p></div>
+      <a href="/Explore/explore.html#festivals" class="view-all">View all →</a>
+    </div>
+    <div class="scroller">
+      <div class="fest-card"><div class="fest-img" style="background-image: url('/image/diwali.png');"></div><b>Diwali</b><span>Festival of Lights · Oct–Nov</span></div>
+      <div class="fest-card"><div class="fest-img" style="background-image: url('/image/holi.png');"></div><b>Holi</b><span>Festival of Colors · Mar</span></div>
+      <div class="fest-card"><div class="fest-img" style="background-image: url('/image/onam.png');"></div><b>Onam</b><span>Kerala's Harvest Festival · Aug–Sep</span></div>
+      <div class="fest-card"><div class="fest-img" style="background-image: url('/image/durga-puja.png');"></div><b>Durga Puja</b><span>Celebrating Shakti · Sep–Oct</span></div>
+      <div class="fest-card"><div class="fest-img" style="background-image: url('/image/pongal.png');"></div><b>Pongal</b><span>Harvest Festival · Jan</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GAMES ================= -->
+<section class="section" style="background:var(--sand-200);">
+  <div class="container">
+    <div class="section-head">
+      <div><h2>Games &amp; quizzes</h2><p>Learn while you play.</p></div>
+      <a href="/Games/games.html" class="view-all">View all →</a>
+    </div>
+    <div class="game-grid">
+      <div class="game-card"><span class="game-ico">🏛️</span><b>Heritage Quiz</b><span>Test your knowledge</span><a href="/Games/games.html" class="btn btn-primary btn-sm btn-block">Start</a></div>
+      <div class="game-card"><span class="game-ico">🎴</span><b>Memory Match</b><span>Match the pairs</span><a href="/Games/games.html" class="btn btn-sm btn-block" style="background:#6b4baa;color:#fff;">Start</a></div>
+      <div class="game-card"><span class="game-ico">🧩</span><b>Monument Puzzle</b><span>Solve the puzzle</span><a href="/Games/games.html" class="btn btn-sm btn-block" style="background:var(--terracotta);color:#fff;">Start</a></div>
+      <div class="game-card"><span class="game-ico">🔤</span><b>Word Search</b><span>Find the hidden words</span><a href="/Games/games.html" class="btn btn-sm btn-block" style="background:var(--teal);color:#fff;">Start</a></div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<style>
+/* ---- page-specific styles ---- */
+.hero{
+  background:radial-gradient(circle at 20% 20%, var(--ink-800), var(--ink-900) 70%);
+  color:var(--text-inverse);
+  padding:78px 0 64px;
+}
+.hero-copy{max-width:760px;}
+.hero-copy h1{font-size:50px;color:#fff;margin:10px 0 18px;}
+.hero-copy h1 em{font-style:italic;color:var(--gold-light);}
+.hero-sub{color:var(--sand-300);max-width:560px;margin-bottom:28px;font-size:16px;}
+.hero-search{display:flex;gap:10px;max-width:520px;margin-bottom:34px;}
+.hero-search input{
+  flex:1;padding:13px 18px;border-radius:999px;border:none;font-size:14.5px;
+  background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.2);
+}
+.hero-search input::placeholder{color:var(--sand-300);}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;}
+.action-tile{
+  flex:1 1 220px;display:flex;gap:12px;align-items:flex-start;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
+  padding:16px;border-radius:var(--radius-md);transition:transform .15s ease, background .15s ease;
+}
+.action-tile:hover{transform:translateY(-3px);background:rgba(255,255,255,.1);}
+.action-tile b{display:block;color:#fff;font-family:var(--serif);font-size:16px;font-weight:400;}
+.action-tile small{color:var(--sand-300);font-size:12.5px;}
+.tile-ico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+
+.cat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;}
+.cat-card{display:block;}
+.cat-img {height: 120px;border-radius: var(--radius-md);margin-bottom: 10px;background-size: cover;background-position: center;}
+.cat-card b{display:block;font-family:var(--serif);font-size:17px;}
+.cat-card span{font-size:12.5px;color:var(--text-soft);}
+
+.preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.preview-card{padding:0;}
+.preview-head{padding:18px 20px;border-bottom:1px solid var(--sand-200);}
+.preview-head b{font-family:var(--serif);font-size:16px;}
+.preview-head span{display:block;font-size:12.5px;color:var(--text-soft);}
+.preview-body{padding:20px;min-height:210px;}
+.state-blurb h3{font-size:22px;margin-bottom:6px;}
+
+.scan-preview{display:flex;flex-direction:column;align-items:center;gap:14px;}
+.scan-frame{
+  width:100%;height:110px;border-radius:var(--radius-md);
+  background:linear-gradient(160deg,#241c14,#5a3a1e);
+  position:relative;display:flex;align-items:center;justify-content:center;font-size:34px;
+}
+.scan-corner{position:absolute;width:16px;height:16px;border:2px solid var(--gold-light);}
+.scan-corner.tl{top:8px;left:8px;border-right:none;border-bottom:none;}
+.scan-corner.tr{top:8px;right:8px;border-left:none;border-bottom:none;}
+.scan-corner.bl{bottom:8px;left:8px;border-right:none;border-top:none;}
+.scan-corner.br{bottom:8px;right:8px;border-left:none;border-top:none;}
+.scan-result{text-align:center;}
+.scan-result h4{font-family:var(--serif);font-size:17px;margin:8px 0 2px;}
+.scan-result p{font-size:12.5px;}
+
+.chat-bubble{padding:10px 14px;border-radius:14px;font-size:13.5px;margin-bottom:10px;max-width:92%;}
+.chat-bubble.user{background:var(--sand-200);margin-left:auto;border-bottom-right-radius:4px;}
+.chat-bubble.bot{background:var(--ink-900);color:var(--sand-100);border-bottom-left-radius:4px;}
+
+.fest-card{flex:0 0 285px;}
+.fest-img{height:130px;width:100%;border-radius:var(--radius-md);margin-bottom:8px;background-size:cover;background-position:center;background-repeat:no-repeat;}
+.fest-card b{display:block;font-family:var(--serif);font-size:15.5px;}
+.fest-card span{font-size:12px;color:var(--text-soft);}
+
+.game-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+.game-card{
+  background:#fff;border-radius:var(--radius-md);padding:22px 18px;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:6px;box-shadow:var(--shadow-card);
+}
+.game-ico{font-size:30px;}
+.game-card b{font-family:var(--serif);font-size:15.5px;}
+.game-card span{font-size:12px;color:var(--text-soft);margin-bottom:8px;}
+
+@media(max-width:960px){
+  .cat-grid{grid-template-columns:repeat(3,1fr);}
+  .preview-grid{grid-template-columns:1fr;}
+  .game-grid{grid-template-columns:repeat(2,1fr);}
+  .hero-copy h1{font-size:38px;}
+}
+@media(max-width:640px){
+  .cat-grid{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+
+<script src="script.js"></script>
+</body>
+</html>
+
+

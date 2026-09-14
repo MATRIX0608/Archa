@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explore — Heritageverse</title>
+<link rel="stylesheet" href="/Homepage/style.css">
+</head>
+<body class="explore-theme">
+<div id="site-header" data-active="States"></div>
+
+<section class="ex-hero">
+  <div class="container">
+    <span class="eyebrow" style="color:var(--gold-light);">Explore</span>
+    <h1>Choose a state to<br>begin your journey</h1>
+    <div class="state-pill-row" id="stateRow"></div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:40px;">
+  <div class="container ex-layout">
+    <div class="ex-map card">
+      <b id="stateName">Rajasthan</b>
+      <p id="stateDesc">Land of kings, forts, folk music and vibrant culture.</p>
+      <div class="stat-row" style="margin:18px 0;">
+        <div class="stat"><b id="s-mon">245</b><span>Monuments</span></div>
+        <div class="stat"><b id="s-fes">58</b><span>Festivals</span></div>
+        <div class="stat"><b id="s-art">128</b><span>Art &amp; Crafts</span></div>
+        <div class="stat"><b id="s-sto">96</b><span>Stories</span></div>
+        <div class="stat"><b id="s-food">73</b><span>Food Dishes</span></div>
+      </div>
+      <div class="map-graphic">🗺️</div>
+    </div>
+
+    <div class="ex-content">
+      <div class="ex-tabs">
+        <button class="ex-tab active" data-tab="monuments">Monuments</button>
+        <button class="ex-tab" data-tab="festivals">Festivals</button>
+        <button class="ex-tab" data-tab="food">Food</button>
+        <button class="ex-tab" data-tab="craft">Art &amp; Craft</button>
+        <button class="ex-tab" data-tab="stories">Stories</button>
+      </div>
+      <div class="ex-grid" id="exGrid"></div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<style>
+.ex-hero{background:linear-gradient(160deg,var(--ink-900),var(--ink-800));color:#fff;padding:56px 0 28px;}
+.ex-hero h1{font-size:36px;color:#fff;margin:10px 0 24px;}
+.state-pill-row{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;}
+.state-pill{
+  padding:9px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.25);
+  color:var(--sand-300);font-size:13.5px;white-space:nowrap;flex-shrink:0;background:transparent;
+}
+.state-pill.active{background:var(--terracotta);color:#fff;border-color:var(--terracotta);}
+
+.ex-layout{display:grid;grid-template-columns:320px 1fr;gap:26px;align-items:start;}
+.ex-map{padding:26px;position:sticky;top:96px;}
+.ex-map b{font-family:var(--serif);font-size:24px;}
+.map-graphic{
+  height:150px;border-radius:var(--radius-md);
+  background:linear-gradient(160deg,#e3d3ab,#c1512d33);
+  display:flex;align-items:center;justify-content:center;font-size:44px;margin-top:12px;
+}
+
+.ex-tabs{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap;}
+.ex-tab{
+  padding:9px 18px;border-radius:999px;border:1px solid var(--sand-300);
+  background:#fff;font-size:13.5px;font-weight:600;color:var(--text-soft);
+}
+.ex-tab.active{background:var(--ink-900);color:#fff;border-color:var(--ink-900);}
+
+.ex-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.ex-item{background:#fff;border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-card);}
+.ex-item .thumb{height:130px;}
+.ex-item .body{padding:14px 16px;}
+.ex-item b{font-family:var(--serif);font-size:15.5px;display:block;}
+.ex-item span{font-size:12px;color:var(--text-soft);}
+
+@media(max-width:900px){
+  .ex-layout{grid-template-columns:1fr;}
+  .ex-map{position:static;}
+  .ex-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:560px){.ex-grid{grid-template-columns:1fr;}}
+</style>
+
+<script src="/Homepage/script.js"></script>
+<script>
+const states = {
+  "Rajasthan":{desc:"Land of kings, forts, folk music and vibrant culture.", stats:[245,58,128,96,73]},
+  "Tamil Nadu":{desc:"Temple towns, bronze artistry and classical dance traditions.", stats:[312,64,210,140,88]},
+  "Kerala":{desc:"Backwaters, spice trade history and Theyyam ritual arts.", stats:[97,45,86,62,54]},
+  "West Bengal":{desc:"Colonial heritage, Durga Puja and a rich literary legacy.", stats:[134,52,150,110,66]},
+  "Uttar Pradesh":{desc:"Home to the Taj Mahal and centuries of Mughal grandeur.", stats:[356,70,180,190,102]},
+  "Gujarat":{desc:"Kutch crafts, stepwells and vibrant Navratri festivities.", stats:[178,60,190,80,77]},
+};
+
+const gridData = {
+  monuments:[["Amber Fort","Jaipur"],["Hawa Mahal","Jaipur"],["Jantar Mantar","Jaipur"],["Mehrangarh Fort","Jodhpur"],["Kumbhalgarh Fort","Rajsamand"],["Chittorgarh Fort","Chittorgarh"]],
+  festivals:[["Teej","Jul–Aug"],["Pushkar Fair","Oct–Nov"],["Gangaur","Mar–Apr"],["Marwar Festival","Oct"],["Desert Festival","Feb"],["Kite Festival","Jan"]],
+  food:[["Dal Baati Churma","Signature thali"],["Laal Maas","Spiced mutton curry"],["Ghewar","Festive sweet"],["Pyaaz Kachori","Street snack"],["Ker Sangri","Desert vegetable"],["Malpua","Dessert pancake"]],
+  craft:[["Blue Pottery","Jaipur"],["Bandhani Textiles","Jodhpur"],["Meenakari Jewellery","Jaipur"],["Phad Painting","Bhilwara"],["Leather Mojari","Jodhpur"],["Marble Inlay","Makrana"]],
+  stories:[["The Legend of Padmini","Chittorgarh"],["Panna Dhai's Sacrifice","Chittorgarh"],["The Ballad of Dhola-Maru","Folk epic"],["Gogaji the Snake Saint","Folk deity"],["Moomal & Mahendra","Thar romance"],["The Rani of Jhalawar","Local legend"]],
+};
+
+const gradients = ["#c1512d,#7a3018","#d4a343,#946f21","#3c7a6f,#204a42","#6b4baa,#40255f","#1b1a2e,#322f54","#9c3f22,#c1512d"];
+
+function renderStates(){
+  const row = document.getElementById("stateRow");
+  row.innerHTML = Object.keys(states).map((s,i)=>
+    `<button class="state-pill ${i===0?'active':''}" data-state="${s}">${s}</button>`
+  ).join("");
+  row.querySelectorAll(".state-pill").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      row.querySelectorAll(".state-pill").forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      selectState(btn.dataset.state);
+    });
+  });
+}
+
+function selectState(name){
+  const s = states[name];
+  document.getElementById("stateName").textContent = name;
+  document.getElementById("stateDesc").textContent = s.desc;
+  document.getElementById("s-mon").textContent = s.stats[0];
+  document.getElementById("s-fes").textContent = s.stats[1];
+  document.getElementById("s-art").textContent = s.stats[2];
+  document.getElementById("s-sto").textContent = s.stats[3];
+  document.getElementById("s-food").textContent = s.stats[4];
+}
+
+function renderGrid(tab){
+  const grid = document.getElementById("exGrid");
+  grid.innerHTML = gridData[tab].map((item,i)=>`
+    <div class="ex-item">
+      <div class="thumb" style="background:linear-gradient(150deg,${gradients[i%gradients.length]});"></div>
+      <div class="body"><b>${item[0]}</b><span>${item[1]}</span></div>
+    </div>`).join("");
+}
+
+document.querySelectorAll(".ex-tab").forEach(tab=>{
+  tab.addEventListener("click",()=>{
+    document.querySelectorAll(".ex-tab").forEach(t=>t.classList.remove("active"));
+    tab.classList.add("active");
+    renderGrid(tab.dataset.tab);
+  });
+});
+
+renderStates();
+renderGrid("monuments");
+
+// jump to tab if URL has hash
+const hash = location.hash.replace("#","");
+if(gridData[hash]){
+  document.querySelectorAll(".ex-tab").forEach(t=>t.classList.toggle("active", t.dataset.tab===hash));
+  renderGrid(hash);
+}
+</script>
+</body>
+</html>

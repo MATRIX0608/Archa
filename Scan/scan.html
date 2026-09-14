@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scan — Heritageverse</title>
+<link rel="stylesheet" href="/Homepage/style.css">
+</head>
+<body class="scan-theme">
+<div id="site-header" data-active="Scan"></div>
+
+<section class="scan-hero">
+  <div class="container">
+    <span class="eyebrow" style="color:var(--gold-light);">Scan</span>
+    <h1>Point, capture, learn</h1>
+    <p style="color:var(--sand-300);max-width:520px;">Scan any monument, sculpture, textile or dish to
+      identify it instantly and uncover its story.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container scan-layout">
+
+    <div class="card scan-stage">
+      <div class="scan-modeswitch">
+        <button class="mode-btn active" data-mode="camera">Camera</button>
+        <button class="mode-btn" data-mode="upload">Upload Image</button>
+      </div>
+      <div class="scan-viewport" id="scanViewport">
+        <div class="scan-corner tl"></div><div class="scan-corner tr"></div>
+        <div class="scan-corner bl"></div><div class="scan-corner br"></div>
+        <span class="scan-placeholder">🪷</span>
+      </div>
+      <input type="file" id="fileInput" accept="image/*" style="display:none;">
+      <div class="scan-controls">
+        <button class="shutter" id="shutterBtn" title="Identify item"></button>
+      </div>
+      <p class="hint">Center the object in frame, then tap to identify.</p>
+    </div>
+
+    <div class="card scan-result-panel" id="resultPanel">
+      <div class="result-empty" id="resultEmpty">
+        <span style="font-size:38px;">✨</span>
+        <p>Your identification results will appear here.</p>
+      </div>
+      <div class="result-filled" id="resultFilled" style="display:none;">
+        <span class="chip" style="background:#dbeee9;color:#2f6a5d;">✓ Identified</span>
+        <h3>Nataraja Sculpture</h3>
+        <p class="meta">Chola Dynasty, 11th Century · Tamil Nadu, India</p>
+        <p class="about"><b>About</b><br>Nataraja is a form of Lord Shiva as the cosmic dancer. This
+          brass sculpture represents the eternal cycle of creation, preservation and destruction.</p>
+        <div class="fact-grid">
+          <div><span>Category</span><b>Sculpture</b></div>
+          <div><span>Material</span><b>Bronze</b></div>
+          <div><span>Period</span><b>11th Century</b></div>
+          <div><span>Region</span><b>Tamil Nadu</b></div>
+        </div>
+        <div class="result-actions">
+          <a href="ai-guide.html" class="btn btn-dark btn-sm">Learn more</a>
+          <button class="btn btn-outline btn-sm" id="saveBtn">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top:44px;">
+    <div class="section-head"><div><h2>Recent scans</h2></div></div>
+    <div class="scroller">
+      <div class="recent-thumb" style="background:linear-gradient(150deg,#c1512d,#7a3018);"></div>
+      <div class="recent-thumb" style="background:linear-gradient(150deg,#d4a343,#946f21);"></div>
+      <div class="recent-thumb active" style="background:linear-gradient(150deg,#6b4baa,#40255f);"></div>
+      <div class="recent-thumb" style="background:linear-gradient(150deg,#3c7a6f,#204a42);"></div>
+      <div class="recent-thumb" style="background:linear-gradient(150deg,#1b1a2e,#322f54);"></div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<style>
+.scan-hero{background:linear-gradient(160deg,var(--ink-900),var(--ink-800));color:#fff;padding:56px 0;}
+.scan-hero h1{font-size:36px;color:#fff;margin:10px 0 10px;}
+
+.scan-layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.scan-stage{padding:22px;}
+.scan-modeswitch{display:flex;gap:8px;margin-bottom:16px;}
+.mode-btn{flex:1;padding:10px;border-radius:10px;border:1px solid var(--sand-300);background:#fff;font-weight:600;font-size:13.5px;}
+.mode-btn.active{background:var(--ink-900);color:#fff;border-color:var(--ink-900);}
+
+.scan-viewport{
+  position:relative;height:300px;border-radius:var(--radius-md);
+  background:linear-gradient(160deg,#241c14,#5a3a1e);
+  display:flex;align-items:center;justify-content:center;
+  background-size:cover;background-position:center;
+}
+.scan-placeholder{font-size:64px;opacity:.85;}
+.scan-corner{position:absolute;width:22px;height:22px;border:3px solid var(--gold-light);}
+.scan-corner.tl{top:14px;left:14px;border-right:none;border-bottom:none;}
+.scan-corner.tr{top:14px;right:14px;border-left:none;border-bottom:none;}
+.scan-corner.bl{bottom:14px;left:14px;border-right:none;border-top:none;}
+.scan-corner.br{bottom:14px;right:14px;border-left:none;border-top:none;}
+
+.scan-controls{display:flex;justify-content:center;margin-top:18px;}
+.shutter{
+  width:60px;height:60px;border-radius:50%;background:#fff;border:4px solid var(--terracotta);
+}
+.shutter:hover{background:var(--sand-200);}
+.hint{text-align:center;font-size:12.5px;margin-top:10px;}
+
+.scan-result-panel{padding:26px;}
+.result-empty{
+  height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;color:var(--text-soft);text-align:center;min-height:300px;
+}
+.result-filled h3{font-family:var(--serif);font-size:24px;margin:10px 0 4px;}
+.meta{font-size:13px;margin-bottom:14px;}
+.about{font-size:13.5px;margin-bottom:16px;}
+.about b{color:var(--text-main);}
+.fact-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;}
+.fact-grid div{background:var(--sand-100);border-radius:10px;padding:10px 12px;}
+.fact-grid span{display:block;font-size:11px;color:var(--text-soft);}
+.fact-grid b{font-size:13.5px;}
+.result-actions{display:flex;gap:10px;}
+
+.recent-thumb{flex:0 0 110px;height:110px;border-radius:var(--radius-md);cursor:pointer;border:3px solid transparent;}
+.recent-thumb.active{border-color:var(--terracotta);}
+
+@media(max-width:900px){.scan-layout{grid-template-columns:1fr;}}
+</style>
+
+<script src="/Homepage/script.js"></script>
+<script>
+document.querySelectorAll(".mode-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".mode-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    if(btn.dataset.mode==="upload") document.getElementById("fileInput").click();
+  });
+});
+
+document.getElementById("fileInput").addEventListener("change",(e)=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  const url = URL.createObjectURL(file);
+  const vp = document.getElementById("scanViewport");
+  vp.style.backgroundImage = `url(${url})`;
+  vp.querySelector(".scan-placeholder").style.display = "none";
+});
+
+document.getElementById("shutterBtn").addEventListener("click", ()=>{
+  document.getElementById("resultEmpty").style.display = "none";
+  const filled = document.getElementById("resultFilled");
+  filled.style.display = "block";
+  filled.style.opacity = 0;
+  filled.animate([{opacity:0,transform:"translateY(6px)"},{opacity:1,transform:"translateY(0)"}],{duration:280,fill:"forwards"});
+});
+
+document.getElementById("saveBtn").addEventListener("click", (e)=>{
+  e.target.textContent = "Saved ✓";
+});
+</script>
+</body>
+</html>
