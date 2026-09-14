@@ -1,6 +1,8 @@
 require('dotenv').config();
 
 const { GoogleGenAI } = require('@google/genai');
+const Groq = require('groq-sdk');
+const OpenAI = require('openai');
 const express = require('express');
 const cors = require('cors');
 const admin = require('firebase-admin');
@@ -16,13 +18,13 @@ const PORT = process.env.PORT || 3000;
 // =====================================================
 
 const allowedOrigins = [
-  "http://localhost:3000",
-  "http://127.0.0.1:3000",
-  "http://localhost:5500",
-  "http://127.0.0.1:5500",
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'http://localhost:5500',
+  'http://127.0.0.1:5500',
 
-  ...(process.env.FRONTEND_URL || "")
-    .split(",")
+  ...(process.env.FRONTEND_URL || '')
+    .split(',')
     .map(value => value.trim())
     .filter(Boolean)
 ];
@@ -35,29 +37,19 @@ app.use(cors({
       return callback(null, true);
     }
 
-    // Allow local development
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
 
-    // Allow Vercel frontend
-    if (
-      process.env.FRONTEND_URL &&
-      origin === process.env.FRONTEND_URL
-    ) {
-      return callback(null, true);
-    }
+    console.log('Blocked CORS origin:', origin);
 
-    console.log("Blocked CORS origin:", origin);
-
-    callback(new Error("Origin not allowed by CORS."));
+    callback(new Error('Origin not allowed by CORS.'));
   }
 }));
 
 
 // =====================================================
 // JSON BODY
-// IMPORTANT: Must come BEFORE /api/scan
 // =====================================================
 
 app.use(express.json({
@@ -87,9 +79,27 @@ const gemini = new GoogleGenAI({
   apiKey: requireEnv('GEMINI_API_KEY')
 });
 
+// =====================================================
+// AI FALLBACK PROVIDERS
+// =====================================================
+
+const groq = new Groq({
+  apiKey: requireEnv('GROQ_API_KEY')
+});
+
+const openrouter = new OpenAI({
+  apiKey: requireEnv('OPENROUTER_API_KEY'),
+  baseURL: 'https://openrouter.ai/api/v1'
+});
+
+const gemini1 = new GoogleGenAI({
+  apiKey: requireEnv('GEMINI_API_KEY1')
+});
+
 
 // =====================================================
 // FIREBASE ADMIN
+// KEEP READY FOR LATER AUTH
 // =====================================================
 
 if (!admin.apps.length) {
@@ -121,6 +131,7 @@ const supabase = createClient(
 
 // =====================================================
 // GEMINI IMAGE SCAN
+// MULTI-PROVIDER FALLBACK
 // =====================================================
 
 app.post('/api/scan', async (req, res) => {
@@ -129,8 +140,10 @@ app.post('/api/scan', async (req, res) => {
 
     const { image, mimeType } = req.body;
 
+    // -------------------------------------------------
+    // VALIDATION
+    // -------------------------------------------------
 
-    // Check image
     if (!image || !mimeType) {
 
       return res.status(400).json({
@@ -139,18 +152,17 @@ app.post('/api/scan', async (req, res) => {
 
     }
 
-
     console.log('');
     console.log('======================================');
-    console.log('Gemini scan request received');
+    console.log('Heritage image scan request');
     console.log('Image size:', image.length);
     console.log('Mime type:', mimeType);
     console.log('======================================');
 
 
-    // =================================================
-    // FIXED PROMPT
-    // =================================================
+    // -------------------------------------------------
+    // SCAN PROMPT
+    // -------------------------------------------------
 
     const prompt = `
 You are an expert in Indian heritage, history, culture,
@@ -161,6 +173,7 @@ Analyze the provided image carefully.
 Identify the MAIN object shown in the image.
 
 The object may be:
+
 - Monument
 - Historical building
 - Temple
@@ -209,135 +222,296 @@ Rules:
 
 
     // =================================================
-    // SEND IMAGE TO GEMINI
+    // PROVIDER 1 — GEMINI
     // =================================================
 
-    let response;
+    try {
 
-for (let attempt = 1; attempt <= 3; attempt++) {
-  try {
-    console.log(`Gemini attempt ${attempt}/3`);
+      console.log('Trying Scan Provider 1: Gemini...');
 
-    response = await gemini.models.generateContent({
-      model: 'gemini-3.6-flash',
+      const response =
+        await gemini.models.generateContent({
 
-      contents: [
-        {
-          inlineData: {
-            mimeType: mimeType,
-            data: image
+          model: 'gemini-3.6-flash',
+
+          contents: [
+
+            {
+              inlineData: {
+                mimeType: mimeType,
+                data: image
+              }
+            },
+
+            {
+              text: prompt
+            }
+
+          ],
+
+          config: {
+            responseMimeType: 'application/json'
           }
-        },
-        {
-          text: prompt
-        }
-      ],
 
-      config: {
-        responseMimeType: 'application/json'
+        });
+
+      let text = response.text;
+
+      if (!text) {
+        throw new Error(
+          'Gemini returned an empty response.'
+        );
       }
-    });
 
-    break;
+      text = text
+        .replace(/^```json/i, '')
+        .replace(/^```/i, '')
+        .replace(/```$/i, '')
+        .trim();
 
-  } catch (error) {
-
-    console.error(
-      `Gemini attempt ${attempt} failed:`,
-      error.message
-    );
-
-    // Retry temporary 503/429/5xx errors
-    if (
-      attempt < 3 &&
-      (
-        error.status === 503 ||
-        error.status === 429 ||
-        (error.status >= 500 && error.status < 600)
-      )
-    ) {
-      const delay = attempt * 2000;
+      const result = JSON.parse(text);
 
       console.log(
-        `Retrying Gemini in ${delay / 1000} seconds...`
+        '✅ Gemini scan successful.'
       );
 
-      await new Promise(resolve =>
-        setTimeout(resolve, delay)
+      return res.json({
+        ...result,
+        provider: 'Gemini'
+      });
+
+    } catch (error) {
+
+      console.error(
+        '❌ Gemini scan failed:',
+        error.message
       );
 
-    } else {
-      throw error;
+      console.log(
+        'Switching to Scan Provider 2...'
+      );
+
     }
-  }
-}
-
-
-    console.log('Gemini response received');
 
 
     // =================================================
-    // GET RESPONSE TEXT
+    // PROVIDER 2 — GROQ
     // =================================================
 
-    let text = response.text;
+    try {
 
+      console.log('Trying Scan Provider 2: Groq...');
 
-    console.log('Gemini raw response:');
-    console.log(text);
-
-
-    if (!text) {
+      /*
+       * Groq models generally do not provide image
+       * understanding through the same interface here.
+       *
+       * Therefore Groq receives the extracted question
+       * only if you later add a vision-capable Groq model.
+       */
 
       throw new Error(
-        'Gemini returned an empty response.'
+        'Groq scan fallback requires a vision-capable Groq model.'
+      );
+
+    } catch (error) {
+
+      console.error(
+        '❌ Groq scan failed:',
+        error.message
+      );
+
+      console.log(
+        'Switching to Scan Provider 3...'
+      );
+
+    }
+
+    // =================================================
+    // PROVIDER 3 — GEMINI
+    // =================================================
+
+    try {
+
+      console.log('Trying Scan Provider 3: Gemini...');
+
+      const response =
+        await gemini1.models.generateContent({
+
+          model: 'gemini-3.6-flash',
+
+          contents: [
+
+            {
+              inlineData: {
+                mimeType: mimeType,
+                data: image
+              }
+            },
+
+            {
+              text: prompt
+            }
+
+          ],
+
+          config: {
+            responseMimeType: 'application/json'
+          }
+
+        });
+
+      let text = response.text;
+
+      if (!text) {
+        throw new Error(
+          'Gemini returned an empty response.'
+        );
+      }
+
+      text = text
+        .replace(/^```json/i, '')
+        .replace(/^```/i, '')
+        .replace(/```$/i, '')
+        .trim();
+
+      const result = JSON.parse(text);
+
+      console.log(
+        '✅ Gemini scan successful.'
+      );
+
+      return res.json({
+        ...result,
+        provider: 'Gemini'
+      });
+
+    } catch (error) {
+
+      console.error(
+        '❌ Gemini scan failed:',
+        error.message
+      );
+
+      console.log(
+        'Switching to Scan Provider 4...'
+      );
+
+    }
+
+
+
+    // =================================================
+    // PROVIDER 4 — OPENROUTER
+    // =================================================
+
+    try {
+
+      console.log(
+        'Trying Scan Provider 4: OpenRouter...'
+      );
+
+      const completion =
+        await openrouter.chat.completions.create({
+
+          model: 'openai/gpt-oss-20b:free',
+
+          messages: [
+
+            {
+              role: 'user',
+
+              content: [
+
+                {
+                  type: 'text',
+                  text: prompt
+                },
+
+                {
+                  type: 'image_url',
+
+                  image_url: {
+                    url:
+                      `data:${mimeType};base64,${image}`
+                  }
+
+                }
+
+              ]
+
+            }
+
+          ]
+
+        });
+
+      let text =
+        completion
+          .choices?.[0]
+          ?.message
+          ?.content;
+
+      if (!text) {
+
+        throw new Error(
+          'OpenRouter returned an empty response.'
+        );
+
+      }
+
+      text = text
+        .replace(/^```json/i, '')
+        .replace(/^```/i, '')
+        .replace(/```$/i, '')
+        .trim();
+
+      const result = JSON.parse(text);
+
+      console.log(
+        '✅ OpenRouter scan successful.'
+      );
+
+      return res.json({
+        ...result,
+        provider: 'OpenRouter'
+      });
+
+    } catch (error) {
+
+      console.error(
+        '❌ OpenRouter scan failed:',
+        error.message
       );
 
     }
 
 
     // =================================================
-    // CLEAN JSON
+    // ALL PROVIDERS FAILED
     // =================================================
 
-    text = text
-      .replace(/^```json\s*/i, '')
-      .replace(/^```\s*/i, '')
-      .replace(/\s*```$/i, '')
-      .trim();
+    return res.status(503).json({
 
+      message:
+        'All AI scan providers are currently unavailable. Please try again later.'
 
-    // =================================================
-    // PARSE JSON
-    // =================================================
-
-    const result = JSON.parse(text);
-
-
-    // =================================================
-    // SEND RESULT TO FRONTEND
-    // =================================================
-
-    console.log('Identification result:', result);
-
-    res.json(result);
-
+    });
 
   } catch (error) {
 
     console.error('');
     console.error('======================================');
-    console.error('GEMINI SCAN ERROR');
+    console.error('AI SCAN ERROR');
     console.error('======================================');
     console.error(error);
     console.error('======================================');
 
-
-    res.status(500).json({
+    return res.status(500).json({
 
       message:
         error.message ||
-        'Gemini analysis failed.'
+        'AI image scan failed.'
 
     });
 
@@ -345,9 +519,361 @@ for (let attempt = 1; attempt <= 3; attempt++) {
 
 });
 
+// =====================================================
+// AI HERITAGE CHATBOT
+// MULTI-PROVIDER FALLBACK
+// =====================================================
+
+app.post('/api/chat', async (req, res) => {
+
+  try {
+
+    const { question, language } = req.body;
+
+    // -------------------------------------------------
+    // VALIDATION
+    // -------------------------------------------------
+
+    if (!question || !question.trim()) {
+
+      return res.status(400).json({
+        message: 'Question is required.'
+      });
+
+    }
+
+    const selectedLanguage =
+      language || 'English';
+
+    console.log('');
+    console.log('======================================');
+    console.log('Heritage AI chat request');
+    console.log('Question:', question);
+    console.log('Language:', selectedLanguage);
+    console.log('======================================');
+
+
+    // -------------------------------------------------
+    // CHAT PROMPT
+    // -------------------------------------------------
+
+    const prompt = `
+You are "Heritageverse AI Guide".
+
+You ONLY answer questions related to:
+
+- Indian heritage
+- Indian history
+- Indian culture
+- Indian monuments
+- Indian architecture
+- Indian temples
+- Indian forts
+- Indian palaces
+- Indian museums
+- Indian art
+- Indian sculptures
+- Indian handicrafts
+- Indian textiles
+- Indian traditional clothing
+- Indian traditional food
+- Indian festivals
+- Indian dances
+- Indian music
+- Indian traditions
+- Indian languages and scripts related to heritage
+- Indian mythology in a cultural or historical context
+- Important people connected to Indian heritage
+
+If the question is NOT related to Indian heritage,
+Indian history, or Indian culture, reply EXACTLY:
+
+"Sorry, I can only help with Indian heritage, history and culture."
+
+Respond ONLY in this language:
+
+${selectedLanguage}
+
+Rules:
+
+1. Be accurate.
+2. Do not invent facts.
+3. If you are unsure, clearly say that you are unsure.
+4. Keep answers simple and easy to understand.
+5. Do not mention Gemini.
+6. Do not discuss unrelated topics.
+7. Do not answer coding questions.
+8. Do not answer mathematics questions.
+9. Do not answer general politics questions.
+10. Do not answer general sports questions.
+11. Do not answer entertainment questions.
+12. Do not give personal advice unless directly related to Indian heritage or culture.
+13. Do not use tables.
+14. For simple questions, give a short answer.
+15. For historical questions, include dates or periods when useful.
+16. Stay focused on Indian heritage, history and culture.
+
+User question:
+
+${question}
+`;
+
+
+    // =================================================
+    // PROVIDER 1 — GEMINI
+    // =================================================
+
+    try {
+
+      console.log('Trying Provider 1: Gemini...');
+
+      const response =
+        await gemini.models.generateContent({
+
+          model: 'gemini-3.6-flash',
+
+          contents: [
+            {
+              text: prompt
+            }
+          ]
+
+        });
+
+      const answer = response.text;
+
+      if (answer) {
+
+        console.log(
+          '✅ Gemini answered successfully.'
+        );
+
+        return res.json({
+          answer: answer.trim(),
+          provider: 'Gemini'
+        });
+
+      }
+
+      throw new Error(
+        'Gemini returned an empty response.'
+      );
+
+    } catch (error) {
+
+      console.error(
+        '❌ Gemini failed:',
+        error.message
+      );
+
+      console.log(
+        'Switching to Provider 2...'
+      );
+
+    }
+
+
+    // =================================================
+    // PROVIDER 2 — GROQ
+    // =================================================
+
+    try {
+
+      console.log('Trying Provider 2: Groq...');
+
+      const completion =
+        await groq.chat.completions.create({
+
+          model: 'llama-3.3-70b-versatile',
+
+          messages: [
+            {
+              role: 'user',
+              content: prompt
+            }
+          ],
+
+          temperature: 0.3
+
+        });
+
+      const answer =
+        completion.choices?.[0]?.message?.content;
+
+      if (answer) {
+
+        console.log(
+          '✅ Groq answered successfully.'
+        );
+
+        return res.json({
+          answer: answer.trim(),
+          provider: 'Groq'
+        });
+
+      }
+
+      throw new Error(
+        'Groq returned an empty response.'
+      );
+
+    } catch (error) {
+
+      console.error(
+        '❌ Groq failed:',
+        error.message
+      );
+
+      console.log(
+        'Switching to Provider 3...'
+      );
+
+    }
+
+        // =================================================
+    // PROVIDER 3 — GEMINI
+    // =================================================
+
+    try {
+
+      console.log('Trying Provider 3: Gemini...');
+
+      const response =
+        await gemini1.models.generateContent({
+
+          model: 'gemini-3.6-flash',
+
+          contents: [
+            {
+              text: prompt
+            }
+          ]
+
+        });
+
+      const answer = response.text;
+
+      if (answer) {
+
+        console.log(
+          '✅ Gemini answered successfully.'
+        );
+
+        return res.json({
+          answer: answer.trim(),
+          provider: 'Gemini'
+        });
+
+      }
+
+      throw new Error(
+        'Gemini returned an empty response.'
+      );
+
+    } catch (error) {
+
+      console.error(
+        '❌ Gemini failed:',
+        error.message
+      );
+
+      console.log(
+        'Switching to Provider 4...'
+      );
+
+    }
+
+
+    // =================================================
+    // PROVIDER 4 — OPENROUTER
+    // =================================================
+
+    try {
+
+      console.log(
+        'Trying Provider 4: OpenRouter...'
+      );
+
+      const completion =
+        await openrouter.chat.completions.create({
+
+          model: 'openai/gpt-oss-20b:free',
+
+          messages: [
+            {
+              role: 'user',
+              content: prompt
+            }
+          ]
+
+        });
+
+      const answer =
+        completion.choices?.[0]?.message?.content;
+
+      if (answer) {
+
+        console.log(
+          '✅ OpenRouter answered successfully.'
+        );
+
+        return res.json({
+          answer: answer.trim(),
+          provider: 'OpenRouter'
+        });
+
+      }
+
+      throw new Error(
+        'OpenRouter returned an empty response.'
+      );
+
+    } catch (error) {
+
+      console.error(
+        '❌ OpenRouter failed:',
+        error.message
+      );
+
+    }
+
+
+    // =================================================
+    // ALL PROVIDERS FAILED
+    // =================================================
+
+    return res.status(503).json({
+
+      message:
+        'All AI providers are currently unavailable. Please try again later.'
+
+    });
+
+
+  } catch (error) {
+
+    console.error('');
+    console.error('======================================');
+    console.error('AI CHAT ERROR');
+    console.error('======================================');
+    console.error(error);
+    console.error('======================================');
+
+    res.status(500).json({
+
+      message:
+        error.message ||
+        'AI chat failed.'
+
+    });
+
+  }
+
+});
 
 // =====================================================
 // FIREBASE USER AUTH
+// READY FOR LATER
 // =====================================================
 
 async function requireFirebaseUser(req, res, next) {
@@ -361,7 +887,10 @@ async function requireFirebaseUser(req, res, next) {
     if (!header.startsWith('Bearer ')) {
 
       return res.status(401).json({
-        message: 'Missing Firebase ID token.'
+
+        message:
+          'Missing Firebase ID token.'
+
       });
 
     }
@@ -387,8 +916,10 @@ async function requireFirebaseUser(req, res, next) {
 
 
     return res.status(401).json({
+
       message:
         'Invalid or expired Firebase session.'
+
     });
 
   }
@@ -443,6 +974,7 @@ app.get('/api/health', async (req, res) => {
 
 // =====================================================
 // USER SYNC
+// FIREBASE AUTH WILL BE USED HERE LATER
 // =====================================================
 
 app.post(
@@ -462,8 +994,8 @@ app.post(
           req.body.email ||
           ''
         )
-          .trim()
-          .toLowerCase();
+        .trim()
+        .toLowerCase();
 
 
       const name =
@@ -472,7 +1004,7 @@ app.post(
           req.firebaseUser.name ||
           'User'
         )
-          .trim();
+        .trim();
 
 
       if (!email) {
@@ -565,7 +1097,9 @@ app.listen(PORT, () => {
   console.log('');
   console.log('======================================');
   console.log(`Backend server running on port ${PORT}`);
-  console.log('Gemini Vision scan: ENABLED');
+  console.log('Gemini Vision Scan: ENABLED');
+  console.log('Heritage AI Chat: ENABLED');
+  console.log('Firebase Auth: READY FOR LATER');
   console.log('======================================');
   console.log('');
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Guide — Heritageverse</title>
+<title>AI Guide </title>
 <link rel="stylesheet" href="/Homepage/style.css">
 </head>
 <body class="guide-theme">
@@ -19,10 +19,6 @@
       <b>Language</b>
       <select id="langSelect" class="lang-select">
         <option>English</option>
-        <option>हिन्दी (Hindi)</option>
-        <option>தமிழ் (Tamil)</option>
-        <option>বাংলা (Bengali)</option>
-        <option>ಕನ್ನಡ (Kannada)</option>
       </select>
     </aside>
 
@@ -37,15 +33,14 @@
 
       <div class="guide-messages" id="messages">
         <div class="msg bot">
-          <p>Namaste! I'm your Heritageverse guide. Ask me about any monument, festival,
-          craft or tradition — in any Indian language.</p>
+          <p>Namaste! I'm your guide. Ask me about any monument, festival,
+          craft or tradition. </p>
         </div>
       </div>
 
       <div class="quick-chips" id="quickChips"></div>
 
       <div class="guide-input-row">
-        <button class="mic-btn" id="micBtn" title="Voice input">🎙️</button>
         <input type="text" id="chatInput" placeholder="Ask me anything…">
         <button class="btn btn-primary" id="sendBtn">Send</button>
       </div>
@@ -100,13 +95,12 @@
 </style>
 
 <script src="/Homepage/script.js"></script>
+<script src="/Ai-Chatbot/ai-guide.js"></script>
 <script>
 const suggestions = [
   "Tell me about Konark Sun Temple",
   "What is the story behind Diwali?",
-  "Explain Kathakali dance form",
   "Who built the Taj Mahal?",
-  "What is Meenakari jewellery?",
 ];
 
 const answers = {
@@ -151,11 +145,6 @@ document.querySelectorAll(".suggest-item").forEach(btn=>{
   btn.addEventListener("click", ()=>{ addMessage(btn.textContent,"user"); respond(btn.textContent); });
 });
 
-document.getElementById("quickChips").innerHTML = ["Who built it?","History","Architecture details","Interesting facts"]
-  .map(c=>`<span class="chip">${c}</span>`).join("");
-document.querySelectorAll(".quick-chips .chip").forEach(chip=>{
-  chip.addEventListener("click", ()=>{ addMessage(chip.textContent,"user"); respond(chip.textContent); });
-});
 
 const micBtn = document.getElementById("micBtn");
 micBtn.addEventListener("click", ()=>{
