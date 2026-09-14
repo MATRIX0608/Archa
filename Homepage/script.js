@@ -27,7 +27,7 @@ function renderHeader(active){
       </a>
       <nav class="main-nav">${nav}</nav>
       <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
-      <div class="nav-avatar">👤</div>
+      <div class="nav-avatar"><a href="/Login/public/login.html">👤</a></div>
     </div>
   </header>`;
 }
@@ -47,19 +47,19 @@ function renderFooter(){
         <div>
           <h4>Discover</h4>
           <ul>
-            <li><a href="explore.html">States</a></li>
-            <li><a href="explore.html#monuments">Monuments</a></li>
-            <li><a href="explore.html#festivals">Festivals</a></li>
-            <li><a href="explore.html#food">Food</a></li>
+            <li><a href="/Explore/explore.html">States</a></li>
+            <li><a href="/Explore/explore.html#monuments">Monuments</a></li>
+            <li><a href="/Explore/explore.html#festivals">Festivals</a></li>
+            <li><a href="/Explore/explore.html#food">Food</a></li>
           </ul>
         </div>
         <div>
           <h4>Tools</h4>
           <ul>
-            <li><a href="scan.html">Scan an artefact</a></li>
-            <li><a href="ai-guide.html">Ask the AI Guide</a></li>
-            <li><a href="timeline.html">Timeline</a></li>
-            <li><a href="games.html">Games &amp; quizzes</a></li>
+            <li><a href="/Scan/scan.html">Scan an artefact</a></li>
+            <li><a href="/Ai-Chatbot/ai-guide.html">Ask the AI Guide</a></li>
+            <li><a href="/TimelineExten/timeline.html">Timeline</a></li>
+            <li><a href="/Games/games.html">Games &amp; quizzes</a></li>
           </ul>
         </div>
         <div>

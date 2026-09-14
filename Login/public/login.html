@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hidden India · Sign In</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+<div class="glow"></div>
+
+<!-- clouds -->
+<div class="cloud c5"><svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="60" cy="60" rx="55" ry="28" fill="#fff3e4"/><ellipse cx="110" cy="50" rx="45" ry="24" fill="#fff3e4"/><ellipse cx="150" cy="65" rx="35" ry="20" fill="#fff3e4"/></svg></div>
+<div class="cloud c1"><svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="60" cy="60" rx="55" ry="28" fill="#ffffff"/><ellipse cx="110" cy="50" rx="45" ry="24" fill="#ffffff"/><ellipse cx="150" cy="65" rx="35" ry="20" fill="#ffffff"/></svg></div>
+<div class="cloud c2"><svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="60" cy="60" rx="55" ry="28" fill="#fff6ea"/><ellipse cx="110" cy="50" rx="45" ry="24" fill="#fff6ea"/><ellipse cx="150" cy="65" rx="35" ry="20" fill="#fff6ea"/></svg></div>
+<div class="cloud c3"><svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="60" cy="60" rx="55" ry="28" fill="#ffffff"/><ellipse cx="110" cy="50" rx="45" ry="24" fill="#ffffff"/><ellipse cx="150" cy="65" rx="35" ry="20" fill="#ffffff"/></svg></div>
+<div class="cloud c4"><svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="60" cy="60" rx="55" ry="28" fill="#fff3e4"/><ellipse cx="110" cy="50" rx="45" ry="24" fill="#fff3e4"/><ellipse cx="150" cy="65" rx="35" ry="20" fill="#fff3e4"/></svg></div>
+
+<!-- birds -->
+<div class="bird b1"><svg viewBox="0 0 24 14" xmlns="http://www.w3.org/2000/svg"><path d="M0 8 Q6 0 12 8 Q18 0 24 8" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></div>
+<div class="bird b2"><svg viewBox="0 0 24 14" xmlns="http://www.w3.org/2000/svg"><path d="M0 8 Q6 0 12 8 Q18 0 24 8" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></div>
+<div class="bird b3"><svg viewBox="0 0 24 14" xmlns="http://www.w3.org/2000/svg"><path d="M0 8 Q6 0 12 8 Q18 0 24 8" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></div>
+
+<!-- flowing ribbon -->
+<div class="ribbon">
+  <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="ribGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#ff9a4d"/>
+        <stop offset="45%" stop-color="#e8452c"/>
+        <stop offset="100%" stop-color="#a8241c"/>
+      </linearGradient>
+      <linearGradient id="ribGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#ffb066"/>
+        <stop offset="100%" stop-color="#d1372a"/>
+      </linearGradient>
+    </defs>
+    <path d="M60,0 C180,40 260,10 340,70 C420,130 380,190 460,230 C540,270 560,220 640,260 L640,0 Z" fill="url(#ribGrad2)" opacity="0.9"/>
+    <path d="M0,40 C120,90 200,40 300,110 C400,180 360,240 470,270 C560,295 580,240 640,270 L640,340 C520,300 480,340 400,300 C300,250 340,190 250,140 C160,90 100,140 0,110 Z" fill="url(#ribGrad)"/>
+  </svg>
+</div>
+
+<div class="stage">
+
+  <!-- LOGIN PANEL -->
+  <section class="panel active" id="panel-login">
+    <h1 class="formtitle">Welcome back</h1>
+    <p class="formsub">Sign in to continue your journey.</p>
+
+    <div class="toast" id="login-toast"></div>
+
+    <form id="login-form" novalidate>
+      <div class="field" id="login-email-field">
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" placeholder="you@example.com" autocomplete="username">
+        <div class="field-msg" id="login-email-msg"></div>
+      </div>
+
+      <div class="field" id="login-pass-field">
+        <label for="login-pass">Password</label>
+        <div class="pw-wrap">
+          <input type="password" id="login-pass" placeholder="Enter your password" autocomplete="current-password">
+          <button type="button" class="pw-toggle" data-target="login-pass">Show</button>
+        </div>
+        <div class="field-msg" id="login-pass-msg"></div>
+      </div>
+
+      <div class="row-between">
+        <label class="remember"><input type="checkbox"> Remember me</label>
+        <button type="button" class="link" data-goto="forgot">Forgot password?</button>
+      </div>
+
+      <button type="submit" class="primary">Sign in</button>
+    </form>
+
+    <div class="switch-line">
+      New here? <button type="button" class="link" data-goto="create">Create an account</button>
+    </div>
+  </section>
+
+  <!-- FORGOT PASSWORD PANEL -->
+  <section class="panel" id="panel-forgot">
+    <div class="back-row">
+      <button type="button" data-goto="login" aria-label="Back to sign in">&larr;</button>
+      <h1 class="formtitle" style="margin:0;">Reset password</h1>
+    </div>
+    <p class="formsub">Enter your email — we'll send a password reset link.</p>
+
+    <div class="toast" id="forgot-toast"></div>
+
+    <form id="forgot-request-form" novalidate>
+      <div class="field" id="forgot-email-field">
+        <label for="forgot-email">Email</label>
+        <input type="email" id="forgot-email" placeholder="you@example.com">
+        <div class="field-msg" id="forgot-email-msg"></div>
+      </div>
+      <button type="submit" class="primary">Send reset link</button>
+    </form>
+</section>
+<!-- CREATE ACCOUNT PANEL -->
+  <section class="panel" id="panel-create">
+    <div class="back-row">
+      <button type="button" data-goto="login" aria-label="Back to sign in">&larr;</button>
+      <h1 class="formtitle" style="margin:0;">Create account</h1>
+    </div>
+    <p class="formsub">Set up access for the PS 197 team portal.</p>
+
+    <div class="toast" id="create-toast"></div>
+
+    <form id="create-form" novalidate>
+      <div class="field" id="create-name-field">
+        <label for="create-name">Full name</label>
+        <input type="text" id="create-name" placeholder="Your name">
+        <div class="field-msg" id="create-name-msg"></div>
+      </div>
+
+      <div class="field" id="create-email-field">
+        <label for="create-email">Email</label>
+        <input type="email" id="create-email" placeholder="you@example.com">
+        <div class="field-msg" id="create-email-msg"></div>
+      </div>
+
+      <button type="submit" class="primary">Continue</button>
+    </form>
+
+    <div class="switch-line">
+      Already have an account? <button type="button" class="link" data-goto="login">Sign in</button>
+    </div>
+  </section>
+
+</div>
+
+<script src="config.js"></script>
+<script type="module" src="login.js"></script>
+
+</body>
+</html>
