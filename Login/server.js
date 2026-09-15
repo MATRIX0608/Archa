@@ -403,6 +403,222 @@ Rules:
 
     }
 
+    // =================================================
+    // PROVIDER 4 — GEMINI
+    // =================================================
+
+    try {
+
+      console.log('Trying Scan Provider 4: Gemini...');
+
+      const response =
+        await gemini2.models.generateContent({
+
+          model: 'gemini-3.6-flash',
+
+          contents: [
+
+            {
+              inlineData: {
+                mimeType: mimeType,
+                data: image
+              }
+            },
+
+            {
+              text: prompt
+            }
+
+          ],
+
+          config: {
+            responseMimeType: 'application/json'
+          }
+
+        });
+
+      let text = response.text;
+
+      if (!text) {
+        throw new Error(
+          'Gemini returned an empty response.'
+        );
+      }
+
+      text = text
+        .replace(/^```json/i, '')
+        .replace(/^```/i, '')
+        .replace(/```$/i, '')
+        .trim();
+
+      const result = JSON.parse(text);
+
+      console.log(
+        '✅ Gemini scan successful.'
+      );
+
+      return res.json({
+        ...result,
+        provider: 'Gemini'
+      });
+
+    } catch (error) {
+
+      console.error(
+        '❌ Gemini scan failed:',
+        error.message
+      );
+
+      console.log(
+        'Switching to Scan Provider 4...'
+      );
+
+    }
+
+    // =================================================
+    // PROVIDER 5 — GEMINI
+    // =================================================
+
+    try {
+
+      console.log('Trying Scan Provider 5: Gemini...');
+
+      const response =
+        await gemini3.models.generateContent({
+
+          model: 'gemini-3.6-flash',
+
+          contents: [
+
+            {
+              inlineData: {
+                mimeType: mimeType,
+                data: image
+              }
+            },
+
+            {
+              text: prompt
+            }
+
+          ],
+
+          config: {
+            responseMimeType: 'application/json'
+          }
+
+        });
+
+      let text = response.text;
+
+      if (!text) {
+        throw new Error(
+          'Gemini returned an empty response.'
+        );
+      }
+
+      text = text
+        .replace(/^```json/i, '')
+        .replace(/^```/i, '')
+        .replace(/```$/i, '')
+        .trim();
+
+      const result = JSON.parse(text);
+
+      console.log(
+        '✅ Gemini scan successful.'
+      );
+
+      return res.json({
+        ...result,
+        provider: 'Gemini'
+      });
+
+    } catch (error) {
+
+      console.error(
+        '❌ Gemini scan failed:',
+        error.message
+      );
+
+      console.log(
+        'Switching to Scan Provider 4...'
+      );
+
+    }
+
+    // =================================================
+    // PROVIDER 6 — GEMINI
+    // =================================================
+
+    try {
+
+      console.log('Trying Scan Provider 6: Gemini...');
+
+      const response =
+        await gemini4.models.generateContent({
+
+          model: 'gemini-3.6-flash',
+
+          contents: [
+
+            {
+              inlineData: {
+                mimeType: mimeType,
+                data: image
+              }
+            },
+
+            {
+              text: prompt
+            }
+
+          ],
+
+          config: {
+            responseMimeType: 'application/json'
+          }
+
+        });
+
+      let text = response.text;
+
+      if (!text) {
+        throw new Error(
+          'Gemini returned an empty response.'
+        );
+      }
+
+      text = text
+        .replace(/^```json/i, '')
+        .replace(/^```/i, '')
+        .replace(/```$/i, '')
+        .trim();
+
+      const result = JSON.parse(text);
+
+      console.log(
+        '✅ Gemini scan successful.'
+      );
+
+      return res.json({
+        ...result,
+        provider: 'Gemini'
+      });
+
+    } catch (error) {
+
+      console.error(
+        '❌ Gemini scan failed:',
+        error.message
+      );
+
+      console.log(
+        'Switching to Scan Provider 4...'
+      );
+
+    }
+
 
 
     // =================================================
