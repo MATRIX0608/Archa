@@ -8,8 +8,8 @@
     "start": "node server.js"
   },
   "engines": {
-    "node": ">=20"
-  },
+  "node": "22.x"
+},
   "dependencies": {
     "@google/genai": "^2.22.0",
     "@supabase/supabase-js": "^2.57.0",
