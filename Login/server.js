@@ -89,6 +89,17 @@ const gemini1 = new GoogleGenAI({
   apiKey: requireEnv('GEMINI_API_KEY1')
 });
 
+const gemini2 = new GoogleGenAI({
+  apiKey: requireEnv('GEMINI_API_KEY2')
+});
+
+const gemini3 = new GoogleGenAI({
+  apiKey: requireEnv('GEMINI_API_KEY3')
+});
+
+const gemini4 = new GoogleGenAI({
+  apiKey: requireEnv('GEMINI_API_KEY4')
+});
 
 // =====================================================
 // FIREBASE ADMIN
@@ -723,7 +734,7 @@ ${question}
 
     }
 
-        // =================================================
+    // =================================================
     // PROVIDER 3 — GEMINI
     // =================================================
 
@@ -775,6 +786,170 @@ ${question}
       );
 
     }
+
+    // =================================================
+    // PROVIDER 4 — GEMINI
+    // =================================================
+
+    try {
+
+      console.log('Trying Provider 4: Gemini...');
+
+      const response =
+        await gemini2.models.generateContent({
+
+          model: 'gemini-3.6-flash',
+
+          contents: [
+            {
+              text: prompt
+            }
+          ]
+
+        });
+
+      const answer = response.text;
+
+      if (answer) {
+
+        console.log(
+          '✅ Gemini answered successfully.'
+        );
+
+        return res.json({
+          answer: answer.trim(),
+          provider: 'Gemini'
+        });
+
+      }
+
+      throw new Error(
+        'Gemini returned an empty response.'
+      );
+
+    } catch (error) {
+
+      console.error(
+        '❌ Gemini failed:',
+        error.message
+      );
+
+      console.log(
+        'Switching to Provider 4...'
+      );
+
+    }
+
+    // =================================================
+    // PROVIDER 5 — GEMINI
+    // =================================================
+
+    try {
+
+      console.log('Trying Provider 5: Gemini...');
+
+      const response =
+        await gemini3.models.generateContent({
+
+          model: 'gemini-3.6-flash',
+
+          contents: [
+            {
+              text: prompt
+            }
+          ]
+
+        });
+
+      const answer = response.text;
+
+      if (answer) {
+
+        console.log(
+          '✅ Gemini answered successfully.'
+        );
+
+        return res.json({
+          answer: answer.trim(),
+          provider: 'Gemini'
+        });
+
+      }
+
+      throw new Error(
+        'Gemini returned an empty response.'
+      );
+
+    } catch (error) {
+
+      console.error(
+        '❌ Gemini failed:',
+        error.message
+      );
+
+      console.log(
+        'Switching to Provider 4...'
+      );
+
+    }
+
+    // =================================================
+    // PROVIDER 6 — GEMINI
+    // =================================================
+
+    try {
+
+      console.log('Trying Provider 6: Gemini...');
+
+      const response =
+        await gemini4.models.generateContent({
+
+          model: 'gemini-3.6-flash',
+
+          contents: [
+            {
+              text: prompt
+            }
+          ]
+
+        });
+
+      const answer = response.text;
+
+      if (answer) {
+
+        console.log(
+          '✅ Gemini answered successfully.'
+        );
+
+        return res.json({
+          answer: answer.trim(),
+          provider: 'Gemini'
+        });
+
+      }
+
+      throw new Error(
+        'Gemini returned an empty response.'
+      );
+
+    } catch (error) {
+
+      console.error(
+        '❌ Gemini failed:',
+        error.message
+      );
+
+      console.log(
+        'Switching to Provider 4...'
+      );
+
+    }
+
+
+
+
+
 
 
     // =================================================
