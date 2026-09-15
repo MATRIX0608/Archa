@@ -11,7 +11,8 @@
   let mode = "camera";
   let captured = false;
 
-  const API_BASE = window.SCAN_API_BASE || "http://localhost:3000";
+  const API_BASE =
+    window.CHAT_API_BASE || "https://archa-production-1508.up.railway.app";
 
   function msg(text) {
     if (status) status.textContent = text;

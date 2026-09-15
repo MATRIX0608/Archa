@@ -10,7 +10,7 @@
   const micBtn = document.getElementById("micBtn");
 
   const API_BASE =
-    window.CHAT_API_BASE || "http://localhost:3000";
+    window.CHAT_API_BASE || "https://archa-production-1508.up.railway.app";
 
 
   // -----------------------------
