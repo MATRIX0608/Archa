@@ -255,6 +255,35 @@
 </style>
 
 <script src="script.js"></script>
+<script>
+const heroImages = [
+  {
+    time: 10,
+    url: "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=2200&q=85"
+  },
+  {
+    time: 10,
+    url: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=2200&q=85"
+  }
+];
+
+const hero = document.querySelector(".home-theme .hero");
+let currentImage = 0;
+
+function changeHeroImage() {
+  hero.style.backgroundImage =
+    `linear-gradient(90deg,rgba(27,26,20,.86),rgba(93,45,20,.48),rgba(0,0,0,.25)), url("${heroImages[currentImage].url}")`;
+
+  const time = heroImages[currentImage].time * 1000;
+
+  currentImage = (currentImage + 1) % heroImages.length;
+
+  setTimeout(changeHeroImage, time);
+}
+
+changeHeroImage();
+
+</script>
 </body>
 </html>
 

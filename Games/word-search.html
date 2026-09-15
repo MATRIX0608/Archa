@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Word Search | Heritageverse</title><link rel="stylesheet" href="word-search.css">
+</head>
+<body>
+<main class="word-shell">
+<a class="back-link" href="games.html">← Back to Games</a>
+<header><p class="eyebrow">HERITAGEVERSE</p><h1>Word Search</h1><p>Find the hidden Indian heritage words. Every round creates a new grid.</p></header>
+<section class="stats"><div><span>Found</span><strong id="found">0/8</strong></div><div><span>Score</span><strong id="score">0</strong></div><div><span>Time</span><strong id="time">0:00</strong></div></section>
+<section class="layout">
+<div class="grid-wrap"><div id="grid" class="word-grid"></div></div>
+<aside><h2>Find these</h2><div id="words" class="words"></div><button id="newRound" class="new-btn">New Round</button><a href="games.html" class="games-btn">Back to Games</a></aside>
+</section>
+<section id="result" class="result hidden"><div class="result-card"><div class="trophy">🏆</div><h2>All Words Found!</h2><p id="resultText"></p><button id="again" class="primary">Play Again</button><a href="games.html" class="secondary">Back to Games</a></div></section>
+</main>
+<script src="word-search.js"></script>
+</body>
+</html>

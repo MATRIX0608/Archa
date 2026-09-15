@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#dcecff"/><stop offset="1" stop-color="#f8e7c9"/>
+        </linearGradient>
+        <linearGradient id="stone" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#f4e6cc"/><stop offset="1" stop-color="#d9c2a2"/>
+        </linearGradient>
+      </defs>
+      <rect width="800" height="520" fill="url(#sky)"/>
+      <circle cx="650" cy="85" r="38" fill="#f3c96b" opacity=".85"/>
+      <rect y="390" width="800" height="130" fill="#9dbb76"/>
+      <path d="M0 405 Q160 365 320 405 T640 405 T800 400 V520 H0Z" fill="#7fa267" opacity=".65"/>
+    
+        <rect x="220" y="250" width="360" height="140" rx="3" fill="#f3eadb" stroke="#765038" stroke-width="3"/>
+        <path d="M300 250 Q400 90 500 250Z" fill="#f3eadb" stroke="#765038" stroke-width="3"/>
+        <ellipse cx="400" cy="115" rx="48" ry="58" fill="#f3eadb" stroke="#765038" stroke-width="3"/>
+        <path d="M400 45 v25" stroke="#765038" stroke-width="7"/>
+        <path d="M385 45 q15 -18 30 0" fill="#d39a42" stroke="#765038" stroke-width="2"/>
+        <path d="M315 250 Q400 165 485 250Z" fill="#d8c3a5" opacity=".6"/>
+        <path d="M350 390 V300 Q400 235 450 300 V390" fill="#c9ae8b" stroke="#765038" stroke-width="3"/>
+        <path d="M372 390 V310 Q400 275 428 310 V390" fill="#557aa8" opacity=".7"/>
+        <g fill="#f3eadb" stroke="#765038" stroke-width="3">
+          <path d="M185 390 V170 Q185 145 205 145 Q225 145 225 170 V390Z"/>
+          <path d="M575 390 V170 Q575 145 595 145 Q615 145 615 170 V390Z"/>
+        </g>
+        <g fill="#d39a42"><circle cx="205" cy="138" r="9"/><circle cx="595" cy="138" r="9"/></g>
+        
+      <rect x="0" y="470" width="800" height="50" fill="#2b2118" opacity=".82"/>
+      <text x="400" y="503" text-anchor="middle" font-family="system-ui,sans-serif" font-size="25" font-weight="800" fill="white">Taj Mahal</text>
+    </svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#dcecff"/><stop offset="1" stop-color="#f8e7c9"/>
+        </linearGradient>
+        <linearGradient id="stone" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#f4e6cc"/><stop offset="1" stop-color="#d9c2a2"/>
+        </linearGradient>
+      </defs>
+      <rect width="800" height="520" fill="url(#sky)"/>
+      <circle cx="650" cy="85" r="38" fill="#f3c96b" opacity=".85"/>
+      <rect y="390" width="800" height="130" fill="#9dbb76"/>
+      <path d="M0 405 Q160 365 320 405 T640 405 T800 400 V520 H0Z" fill="#7fa267" opacity=".65"/>
+    
+        <path d="M190 390 V220 Q190 125 400 125 Q610 125 610 220 V390 H520 V230 Q520 190 400 190 Q280 190 280 230 V390Z" fill="#d9c2a2" stroke="#765038" stroke-width="5"/>
+        <path d="M305 390 V255 Q400 200 495 255 V390Z" fill="#4b3529" stroke="#765038" stroke-width="4"/>
+        <path d="M210 390 H590" stroke="#765038" stroke-width="8"/>
+        <path d="M250 150 H550" stroke="#d39a42" stroke-width="10"/>
+        
+      <rect x="0" y="470" width="800" height="50" fill="#2b2118" opacity=".82"/>
+      <text x="400" y="503" text-anchor="middle" font-family="system-ui,sans-serif" font-size="25" font-weight="800" fill="white">India Gate</text>
+    </svg>

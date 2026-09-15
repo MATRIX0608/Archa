@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#dcecff"/><stop offset="1" stop-color="#f8e7c9"/>
+        </linearGradient>
+        <linearGradient id="stone" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#f4e6cc"/><stop offset="1" stop-color="#d9c2a2"/>
+        </linearGradient>
+      </defs>
+      <rect width="800" height="520" fill="url(#sky)"/>
+      <circle cx="650" cy="85" r="38" fill="#f3c96b" opacity=".85"/>
+      <rect y="390" width="800" height="130" fill="#9dbb76"/>
+      <path d="M0 405 Q160 365 320 405 T640 405 T800 400 V520 H0Z" fill="#7fa267" opacity=".65"/>
+    
+        <rect x="150" y="220" width="500" height="170" fill="#d39a42" stroke="#765038" stroke-width="4"/>
+        <path d="M280 220 Q400 100 520 220Z" fill="#b85c3c" stroke="#765038" stroke-width="4"/>
+        <g fill="#b85c3c" stroke="#765038" stroke-width="4">
+          <path d="M180 220 Q215 145 250 220Z"/><path d="M550 220 Q585 145 620 220Z"/>
+          <path d="M205 145 Q215 90 225 145Z"/><path d="M575 145 Q585 90 595 145Z"/>
+        </g>
+        <path d="M340 390 V275 Q400 215 460 275 V390Z" fill="#f3eadb" stroke="#765038" stroke-width="4"/>
+        
+      <rect x="0" y="470" width="800" height="50" fill="#2b2118" opacity=".82"/>
+      <text x="400" y="503" text-anchor="middle" font-family="system-ui,sans-serif" font-size="25" font-weight="800" fill="white">Mysore Palace</text>
+    </svg>
