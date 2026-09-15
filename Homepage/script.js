@@ -8,7 +8,7 @@ function renderHeader(active){
     ["/Explore/explore.html","States"],
     ["/Scan/scan.html","Scan"],
     ["/Ai-Chatbot/ai-guide.html","AI Guide"],
-    ["/TimelineExten/timeline.html","Culture at Risk"],
+    ["/TimelineExten/timeline.html","Heritage at Risk"],
     ["/Games/games.html","Games"],
   ];
   const nav = links.map(([href,label])=>{
@@ -58,7 +58,7 @@ function renderFooter(){
           <ul>
             <li><a href="/Scan/scan.html">Scan an artefact</a></li>
             <li><a href="/Ai-Chatbot/ai-guide.html">Ask the AI Guide</a></li>
-            <li><a href="/TimelineExten/timeline.html">Culture at Risk</a></li>
+            <li><a href="/TimelineExten/timeline.html">Heritage at Risk</a></li>
             <li><a href="/Games/games.html">Games &amp; quizzes</a></li>
           </ul>
         </div>
