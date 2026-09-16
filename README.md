@@ -8,8 +8,8 @@ The project uses the following services:
 
 | Component      | Platform                |
 | -------------- | ----------------------- |
-| Frontend       | Vercel                  |
-| Backend        | Railway                 |
+| Frontend       | Vercel  html,css,js     |
+| Backend        | Railwa (node.js)        |
 | Database       | Supabase PostgreSQL     |
 | Authentication | Firebase Authentication |
 
